@@ -146,8 +146,7 @@ func (s *JWTTokenAuthenticator) retrieveUserIDGroupsClaims(claims map[string]int
 		groups := []string{}
 		groupsClaim := claims[s.GroupsClaim]
 		if groupsClaim == nil {
-			claimErr := fmt.Errorf("GROUPS_CLAIM not found in the JWT token")
-			return "", []string{}, claimErr
+			return claims[s.UserIDClaim].(string), []string{}, nil
 		}
 
 		groups = common.InterfaceSliceToStringSlice(groupsClaim.([]interface{}))
